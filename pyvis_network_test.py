@@ -6,16 +6,15 @@ import matplotlib.pyplot as plt
 from pyvis.physics import Physics
 from pyvis.network import Network
 
-df = pd.read_excel(r"C:\Users\aki\VSCodeProject\BlenderSandbox\full_top_2022_songs.xlsx", sheet_name='pivoted')
+df = pd.read_excel(r"full_top_2022_songs.xlsx", sheet_name='pivoted')
 
 net = Network(
     notebook = False,
-    directed = False,            # directed graph
-#     bgcolor = "#0d141d",          # background color of graph 
-    bgcolor = '#252c34',
-    font_color = "white",       # use yellow for node labels
+    directed = False,            # directed graph     
+    bgcolor = '#252c34',    # background color of graph 
+    font_color = "white",       # use white for node labels
     cdn_resources = 'in_line',  # make sure Jupyter notebook can display correctly
-    height = "4000px",          # height of chart
+    height = "1000px",          # height of chart
     width = "100%",             # fill the entire width    
     select_menu=False,
     neighborhood_highlight=True,
@@ -62,44 +61,3 @@ html = net.generate_html()
 with open("example.html", mode='w', encoding='utf-8') as fp:
         fp.write(html)
 display(HTML(html))
-
-
-
-# # ~~~~~~~~~~~~~~~~~~~ WORKING ~~~~~~~~~~~~~~~~~~~
-# nodes = list(set([*df['source'], 
-#                   *df['target']
-#                  ]))
-# print(type(nodes))
-
-# # extract the size of each airport
-# node_sizes = df.groupby('target').weight.agg(sum)
-
-# values = [node_sizes[node] for node in nodes]
-# print(node_sizes.dtype)
-# node_sizes.astype(int)
-# print(node_sizes.dtype)
-# node_sizes = node_sizes.tolist()
-# print(type(node_sizes))
-
-# # extract the edges
-# edges = df.values.tolist()
-# print(type(edges))
-
-# net.add_nodes(nodes) #, value = values
-
-# # add the edges
-# net.add_edges(edges)
-# net.repulsion(
-#     node_distance=200,
-#     central_gravity=0.1,
-#     spring_length=400,
-#     spring_strength=0.05,
-#     damping=0.09,
-# )
-
-
-
-# html = net.generate_html()
-# with open("example.html", mode='w', encoding='utf-8') as fp:
-#         fp.write(html)
-# display(HTML(html))
